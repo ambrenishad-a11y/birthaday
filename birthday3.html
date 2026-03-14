@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-family:sans-serif;
+background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+/* button */
+
+button{
+padding:18px 50px;
+font-size:24px;
+border:none;
+border-radius:50px;
+background:white;
+color:#ff4d88;
+cursor:pointer;
+box-shadow:0 0 20px white;
+}
+
+/* wish */
+
+#wish{
+display:none;
+font-size:48px;
+white-space:pre-line;
+text-shadow:0 0 15px white;
+animation:fade 1s;
+}
+
+@keyframes fade{
+from{opacity:0; transform:scale(.8)}
+to{opacity:1; transform:scale(1)}
+}
+
+/* click msg */
+
+#clickMsg{
+display:none;
+font-size:28px;
+margin-top:15px;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{opacity:.3}
+}
+
+/* cake */
+
+.cake{
+display:none;
+font-size:130px;
+cursor:pointer;
+transition:.4s;
+}
+
+.cut{
+transform:scale(.8) rotate(-15deg);
+}
+
+/* SOFT BLAST */
+
+.blast{
+position:absolute;
+width:200px;
+height:200px;
+border-radius:50%;
+background:radial-gradient(circle,white,transparent);
+animation:blast 1s forwards;
+}
+
+@keyframes blast{
+from{transform:scale(0); opacity:1}
+to{transform:scale(3); opacity:0}
+}
+
+</style>
+</head>
+
+<body>
+
+<button onclick="start()">💖 Tap For Surprise 💖</button>
+
+<div id="wish"></div>
+<div id="clickMsg">👉 Click The Cake 🎂</div>
+<div class="cake" id="cake" onclick="cutCake()">🎂</div>
+
+<audio id="music">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3">
+</audio>
+
+<script>
+
+let msg="🎉 Happy Birthday Ananya Sis ❤️";
+
+function start(){
+
+document.querySelector("button").style.display="none";
+
+document.getElementById("music").play();
+
+let w=document.getElementById("wish");
+w.style.display="block";
+
+let i=0;
+function typing(){
+if(i<msg.length){
+w.innerHTML+=msg.charAt(i);
+i++;
+setTimeout(typing,15);
+}
+}
+typing();
+
+document.getElementById("cake").style.display="block";
+document.getElementById("clickMsg").style.display="block";
+}
+
+/* cake click */
+
+function cutCake(){
+
+let c=document.getElementById("cake");
+c.innerHTML="🍰";
+c.classList.add("cut");
+
+document.getElementById("clickMsg").innerHTML="🎉 Cake Cut 🎉";
+document.getElementById("wish").innerHTML="✨ Enjoy Your Special Day ✨";
+
+/* smooth glow blast */
+
+let b=document.createElement("div");
+b.className="blast";
+b.style.left="50%";
+b.style.top="50%";
+document.body.appendChild(b);
+
+setTimeout(()=>b.remove(),1000);
+
+}
+
+</script>
+
+</body>
+</html>
